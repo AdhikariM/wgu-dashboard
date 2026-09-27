@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deployment Status</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <div>
+          <p class="eyebrow">MICROSERVICE PLATFORM</p>
+          <h1>Deployment status</h1>
+          <p class="subtitle">Current deployment status for each service repository.</p>
+        </div>
+        <button id="refresh" type="button">Refresh</button>
+      </header>
+      <p id="message" class="message">Loading deployment records...</p>
+      <section id="summary" class="summary" aria-label="Deployment summary"></section>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Repository</th>
+              <th>Currently deployed to</th>
+              <th>Status</th>
+              <th>Version</th>
+              <th>Commit</th>
+              <th>Deployed at</th>
+            </tr>
+          </thead>
+          <tbody id="deployments"></tbody>
+        </table>
+      </div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

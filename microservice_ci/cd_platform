@@ -1,0 +1,51 @@
+digraph "Microservice CI/CD Platform" {
+	graph [fontcolor="#2D3436" fontname="Sans-Serif" fontsize=15 label="Microservice CI/CD Platform" nodesep=0.60 pad=2.0 rankdir=TB ranksep=0.75 splines=ortho]
+	node [fixedsize=true fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13 height=1.4 imagescale=true labelloc=b shape=box style=rounded width=1.4]
+	edge [color="#7B8894"]
+	subgraph "cluster_GitHub Repositories" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="GitHub Repositories" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"2387c31b48fc4667a291d42e97ca0630" [label="users-api" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/onprem/vcs/github.png" shape=none]
+		"41125a39fe5144afa862f6531d5c07d2" [label="orders-api" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/onprem/vcs/github.png" shape=none]
+		b0c18c1816364eacb55a4322f2f640e5 [label="notifications-api" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/onprem/vcs/github.png" shape=none]
+	}
+	subgraph "cluster_AWS CodePipeline" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="AWS CodePipeline" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"135ba05cba5d442d86e7407459f2fcaf" [label="Pipeline
+(Source → Plan → Deploy → Approve)" height=2.3 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/devtools/codepipeline.png" shape=none]
+	}
+	subgraph "cluster_Build & Deploy" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Build & Deploy" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		dce96cff5bf44991965747e22083165b [label="terraform-plan" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/devtools/codebuild.png" shape=none]
+		"2ed3e0e2c08c41ed8ebff8d1254078fb" [label="terraform-apply" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/devtools/codebuild.png" shape=none]
+	}
+	subgraph "cluster_Terraform State" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Terraform State" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"89de975138a94e2cad91321df3044103" [label="tfstate bucket" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/storage/simple-storage-service-s3.png" shape=none]
+		"94cbfd1ca882493dabbd0495eae8c0b7" [label="state locks" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/database/dynamodb.png" shape=none]
+	}
+	subgraph "cluster_Deployed Services" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Deployed Services" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		"8684aae59b2d4ddabed34177bdd3bd7b" [label="API Functions" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/compute/lambda.png" shape=none]
+		"612063313f274da7938850d2bb6dafa8" [label="HTTP APIs" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/network/api-gateway.png" shape=none]
+	}
+	subgraph "cluster_Deployment Tracking" {
+		graph [bgcolor="#E5F5FD" fontname="Sans-Serif" fontsize=12 label="Deployment Tracking" labeljust=l pencolor="#AEB6BE" rankdir=LR shape=box style=rounded]
+		fcea2f6fa822411ea0c000c5b94afe04 [label="deployment
+metadata" height=2.3 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/database/dynamodb.png" shape=none]
+		d66a949073264ae2b498097ae21eb6dc [label="Dashboard API" height=1.9 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/aws/compute/lambda.png" shape=none]
+		"0969a45511434f95a2fc6f797b7bba8f" [label="GitHub Pages
+Dashboard" height=2.3 image="/Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/site-packages/resources/programming/framework/react.png" shape=none]
+	}
+	"2387c31b48fc4667a291d42e97ca0630" -> "135ba05cba5d442d86e7407459f2fcaf" [label=webhook dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"41125a39fe5144afa862f6531d5c07d2" -> "135ba05cba5d442d86e7407459f2fcaf" [label=webhook dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	b0c18c1816364eacb55a4322f2f640e5 -> "135ba05cba5d442d86e7407459f2fcaf" [label=webhook dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"135ba05cba5d442d86e7407459f2fcaf" -> dce96cff5bf44991965747e22083165b [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	dce96cff5bf44991965747e22083165b -> "2ed3e0e2c08c41ed8ebff8d1254078fb" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"2ed3e0e2c08c41ed8ebff8d1254078fb" -> "89de975138a94e2cad91321df3044103" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"2ed3e0e2c08c41ed8ebff8d1254078fb" -> "94cbfd1ca882493dabbd0495eae8c0b7" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"2ed3e0e2c08c41ed8ebff8d1254078fb" -> "8684aae59b2d4ddabed34177bdd3bd7b" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"2ed3e0e2c08c41ed8ebff8d1254078fb" -> fcea2f6fa822411ea0c000c5b94afe04 [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	"8684aae59b2d4ddabed34177bdd3bd7b" -> "612063313f274da7938850d2bb6dafa8" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	fcea2f6fa822411ea0c000c5b94afe04 -> d66a949073264ae2b498097ae21eb6dc [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+	d66a949073264ae2b498097ae21eb6dc -> "0969a45511434f95a2fc6f797b7bba8f" [dir=forward fontcolor="#2D3436" fontname="Sans-Serif" fontsize=13]
+}
